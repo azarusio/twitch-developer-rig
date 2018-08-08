@@ -56,8 +56,7 @@ REM Import the CA certificate into the local machine's root certificate store.
 SET FF=%ProgramFiles%\Mozilla Firefox\defaults\pref
 IF NOT EXIST "%FF%" SET FF=%ProgramFiles(x86)%\Mozilla Firefox\defaults\pref
 IF "%NEEDS_INSTALLATION%" == "YES" (
-	ECHO Import-Certificate -Filepath "%SSL%\cacert.crt" -CertStoreLocation Cert:\LocalMachine\Root > import.ps1
-	powershell -File import.ps1
+	certutil -Enterprise -addstore Root "%SSL%\cacert.crt"
 	IF ERRORLEVEL 1 (
 		ECHO Cannot import the CA certificate into the local machine's root certificate store.
 		GOTO done
